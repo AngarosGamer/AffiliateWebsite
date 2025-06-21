@@ -55,9 +55,14 @@ In order to host the website, the following items are required to be done:
 ## Permissions & Security :lock:
 
 The Affiliate Website works as follows:
-![Salad-logo](./views/static/images/affiliatewebsite-graph.png)
+![Explanation-graph](./views/static/images/affiliatewebsite-graph.png)
 
 As you may be able to see, the security relies on an administrator adding affiliates to the database, and assuming that a user account has already been created within.
+
+## Examples 
+
+![Signup-example](./views/static/images/signup-example.png)
+![Dashboard-example](./views/static/images/dashboard-example.png)
 
 ## Contributing :heart:
 
