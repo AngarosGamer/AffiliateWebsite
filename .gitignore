@@ -1,0 +1,4 @@
+.env
+database/affiliate-links.csv
+database/database.db
+database/fill_affiliates.sql

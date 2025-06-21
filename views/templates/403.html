@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Forbidden{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/404.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+{% include '_header.html' %}
+<div class="center-div">
+    <div id="magnifying-glass">
+        <i class="fa-solid fa-shield-halved"></i>
+    </div>
+    <h1>Looks like you don't have access! If this isn't right, contact your administrator.</h1>
+
+    <a href="{{ url_for('dashboard_controller.dashboard_get') }}">Return to Homepage</a>
+</div>
+<script src="{{ url_for('static', filename='js/move-glass.js') }}" ></script>
+{% endblock %}

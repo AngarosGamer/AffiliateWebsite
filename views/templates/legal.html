@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Legal Notice{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/legal.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    {% include '_header.html' %}
+        <div class="content" style="max-width: 800px; margin: 40px auto; padding: 20px;">
+            <h1>Legal Notice</h1>
+            <p>
+                <strong>1. Website Pulisher</strong><br>
+                Name : [Angaros] <br>
+                Legal Status : [None]<br>
+                Address : [Not communicated]<br>
+                Phone : [Not communicated]<br>
+                Email : [angaros.gamer@gmail.com]<br>
+            </p>
+            <p>
+                <strong>2.Website Hosting</strong><br>
+                Hosting Provider : [Self-Hosted]<br>
+                Adresse : [Not communicated]<br>
+                Phone : [Not communicated]<br>
+                Website : [https://angaros.xyz]<br>
+            </p>
+            <p>
+                <strong>3. Intellectual Property</strong><br>
+                All content on this website (texts, images, logos, etc.) is the exclusive property of Angaros, unless otherwise stated. Any reproduction or representation, in whole or in part, without prior authorization is prohibited.
+            </p>
+            <p>
+                <strong>4. Responsability</strong><br>
+                Angaros strives to provide accurate and up-to-date information on this website. However, no guarantee is given regarding the accuracy or completeness of the information. Angaros declines any liability for any damage resulting from the use of the website.
+            </p>
+            <p>
+                <strong>5. Personal Data</strong><br>
+                This website collects personal data in compliance with applicable regulations (GDPR). For any inquiries or requests regarding your personal data, please contact us at [angaros.gamer@gmail.com].<br>
+            </p>
+            <p>
+                <strong>6. Cookies</strong><br>
+                This website uses cookies to improve user experience. You can configure your browser to accept or refuse cookies, which may impact the usability of the service.
+
+            </p>
+        </div>
+{% endblock %}

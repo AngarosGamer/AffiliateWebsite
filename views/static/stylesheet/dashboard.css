@@ -1,0 +1,122 @@
+body {
+
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* Warning! This is not pretty and should have been 100%. It just doesn't work??? */
+    margin: 20px;
+    gap: 15px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.card {
+    width: 23%;
+    min-height: 150px;
+    border: 1px solid var(--main-dark-text-color);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-content {
+    display: flex;
+    height: 100%;
+    padding-top: 5%;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.card-title i {
+    font-size: 1.2em;
+}
+
+.card-left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-left-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.indicator-symbol {
+    font-family: SyneRegular, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 5px;
+    color: whitesmoke;
+    padding: 3px;
+}
+.indicator-symbol span {
+    font-family: SyneRegular, sans-serif;
+}
+
+.indicator-symbol.positive{
+    background-color: var(--main-accent-color);
+}
+
+.indicator-symbol.negative{
+    background-color: var(--main-accent-color-opposite);
+}
+
+.card-left-main p {
+    font-family: SyneBold, sans-serif;
+    font-weight: bolder;
+    margin: 0;
+    font-size: 24px;
+    transform: translateY(-3px); /* For some reason Syne has a tendency with numbers to place them lower */
+}
+
+.card-right {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    width: 50%;
+}
+
+.tile {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--main-dark-text-color);
+    height: 100%;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.tile h1 {
+    margin: 0;
+}
+
+.beautiful-display {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.beautiful-display div {
+    width: 5px;
+    border-radius: 15px;
+    background-color: #FF7979;
+}

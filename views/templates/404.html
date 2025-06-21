@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Not Found{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/404.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+{% include '_header.html' %}
+<div class="center-div">
+    <div id="magnifying-glass">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <h1>We searched far and wide... But this page doesn't exist!</h1>
+    <a href="{{ url_for('dashboard_controller.dashboard_get') }}">Return to Homepage</a>
+</div>
+<script src="{{ url_for('static', filename='js/move-glass.js') }}" ></script>
+{% endblock %}

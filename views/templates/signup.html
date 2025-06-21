@@ -1,0 +1,68 @@
+{% extends '_base.html' %}
+
+{% block title %}QFT - Signup{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_blob.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_glasspane.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_center-div.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_form-buttons.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login-signup.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    {% include '_header.html' %}
+    <div id="blob"></div>
+    <div class="center-div">
+        <div class="glasspane">
+            <h1>We're glad to have you!</h1>
+            <p>Create a new account and join the adventure.</p>
+            <form action="/signup" method="POST">
+                <div class="form-input-box">
+                    <label for="email">Email:</label>
+                    <input class="form-input" type="text" name="email" id="email" placeholder="example@email.com">
+                </div>
+                <div class="signup-form-input-parallel-box">
+                    <div class="form-input-box">
+                        <label for="password">Password:</label>
+                        <div class="form-password-box">
+                            <input class="form-input" type="password" name="password" id="password" placeholder="Password">
+                            <div id="form-view-password"><i class="fa-solid fa-eye-slash"></i></div>
+                        </div>
+                    </div>
+                    <div class="form-input-box">
+                        <label for="password">Confirm Password:</label>
+                        <div class="form-password-box">
+                            <input class="form-input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
+                            <div id="form-view-confirm-password"><i class="fa-solid fa-eye-slash"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="password-verification">
+                    <div id="password-check-len" class="hidden"><i class="fa-solid fa-xmark "></i><span>Password must be at least <strong>8 characters</strong> long</span></div>
+                    <div id="password-check-min" class="hidden"><i class="fa-solid fa-xmark"></i><span>Password must contain at least <strong>one lowercase</strong> letter</span></div>
+                    <div id="password-check-maj" class="hidden"><i class="fa-solid fa-xmark"></i><span>Password must contain at least <strong>one uppercase</strong> letter</span></div>
+                    <div id="password-check-num" class="hidden"><i class="fa-solid fa-xmark"></i><span>Password must contain at least <strong>one number</strong></span></div>
+                    <div id="password-check-special" class="hidden"><i class="fa-solid fa-xmark"></i><span>Password must contain at least <strong>one special character</strong> (!@#$%^&* etc.)</span></div>
+                    <div id="password-check-match" class="hidden"><i class="fa-solid fa-xmark"></i><span>Passwords <strong>must match</strong></span></div>
+                </div>
+                {% if noexist is defined %}
+                {% if noexist == True %}
+                <div id="errorbox">
+                    <div id="signup-error"><i class="fa-solid fa-xmark "></i><span>This account already exists! Consider logging in.</span></div>
+                </div>
+                {% endif %}
+                {% endif %}
+                <button id="signup-button-action" class="form-button" type="submit">Sign Up</button>
+                <div class="separator"><div></div>Already have an account?<div></div></div>
+                <input type="hidden" name="next" value="{{ request.args.get('next', '') }}"/>
+                <a href="{{ url_for('login_controller.login_get') }}" class="form-button" id="login-button">Log In</a>
+                {% include '_footer.html' %}
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/password-checker.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/password-view.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/blob.js') }}" ></script>
+{% endblock %}

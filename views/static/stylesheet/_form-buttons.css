@@ -1,0 +1,37 @@
+.form-button {
+    height: 40px;
+    font-size: 16px;
+    background: linear-gradient(90deg, var(--main-accent-color), var(--main-accent-color-opposite));
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: var(--main-white-text-color);
+    background-size: 200% 200%; /* Animation, set big background gradient and displace background */
+    background-position: 1% 0%;
+    transition: background-position 0.5s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: SyneRegular, sans-serif;
+}
+
+@keyframes move-gradient {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 100%;
+    }
+}
+
+.form-button:hover {
+    cursor: pointer;
+    background-position: 99% 0%; /* 99 to avoid clipping on right side (--main-accent-color) */
+}
+
+.form-button:disabled {
+    background: var(--highlight-color);
+    color: rgba(200, 200, 200, 0.5);
+    cursor: auto;
+}

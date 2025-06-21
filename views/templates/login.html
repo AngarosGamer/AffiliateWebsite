@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Login{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_blob.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_glasspane.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_center-div.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_form-buttons.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login-signup.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    {% include '_header.html' %}
+    <div id="blob"></div>
+    <div class="center-div">
+        <div class="glasspane">
+            <h1>Welcome Back!</h1>
+            <p>Log in to your account to access your personal dashboard.</p>
+            <form action="/login" method="POST">
+                <div class="form-input-box">
+                    <label for="email">Email:</label>
+                    <input class="form-input" type="text" name="email" id="email" placeholder="example@email.com">
+                </div>
+                <div class="form-input-box">
+                    <label for="password">Password:</label>
+                    <div class="form-password-box">
+                        <input class="form-input" type="password" name="password" id="password" placeholder="Password">
+                        <div id="form-view-password"><i class="fa-solid fa-eye-slash"></i></div>
+                    </div>
+                </div>
+                {% if noexist is defined %}
+                {% if noexist == True %}
+                <div id="errorbox">
+                    <div id="login-error"><i class="fa-solid fa-xmark "></i><span>Invalid email or password entered.</span></div>
+                </div>
+                {% endif %}
+                {% endif %}
+                <button class="form-button" type="submit">Log In</button>
+                <div class="separator"><div></div>No account?<div></div></div>
+                <input type="hidden" name="next" value="{{ request.args.get('next', '') }}"/>
+                <a href="{{ url_for('signup_controller.signup_get') }}" class="form-button" id="signup-button">Sign Up</a>
+                {% include '_footer.html' %}
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/blob.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/password-view.js') }}" ></script>
+{% endblock %}

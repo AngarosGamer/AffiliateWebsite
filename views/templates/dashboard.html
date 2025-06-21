@@ -1,0 +1,76 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Dashboard{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/dashboard.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+{% include '_header.html' %}
+<div class="dashboard-content">
+    <div class="card-container">
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-link"></i>Total BitLy Clicks</div>
+            <div class="card-content">
+                <div class="card-left">
+                    <div class="card-left-main"><p>{{ bitly_clicks }}</p></div>
+                    <div class="card-left-desc">Previous Month</div>
+                </div>
+                <div class="card-right">
+                    <div class="beautiful-display">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-link"></i>Qualifying Links</div>
+            <div class="card-content">
+                <div class="card-left">
+                    <div class="card-left-main"><p>{{ qualifying_links }}</p></div>
+                    <div class="card-left-desc">Since June 1st, 2024</div>
+                </div>
+                <div class="card-right">
+                    <div class="beautiful-display">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-code"></i>Qualifying Codes</div>
+            <div class="card-content">
+                <div class="card-left">
+                    <div class="card-left-main"><p>{{ qualifying_codes }}</p></div>
+                    <div class="card-left-desc">Since June 1st, 2024</div>
+                </div>
+                <div class="card-right">
+                    <div class="beautiful-display">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-check"></i>Total Qualifying</div>
+            <div class="card-content">
+                <div class="card-left">
+                    <div class="card-left-main"><p>{{ qualifying_codes + qualifying_links }}</p></div>
+                    <div class="card-left-desc">Since June 1st, 2024</div>
+                </div>
+                <div class="card-right">
+                    <div class="beautiful-display">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p><strong>Why are BitLy links much higher than my Qualifying Links/Codes?</strong>
+    <br>BitLy links are directly fetched from the API, and are counted anytime someone clicks the link.
+    <br>The Affiliate Program only grants earnings for <a href="https://docs.google.com/document/d/19qg4dTK7TWHYbDaiHzIN5RdP_ZV_zygHRsb--x4Q-Yc/edit?usp=sharing">Qualifying Referrals</a>, which is the data show in the other cards.</p>
+    <p><strong>Who am I?</strong>
+    <br>You are currently logged in as {{ affiliate.email }}, with the code {{ affiliate.referral_code }}</p>
+    <p><strong>When was this data updated?</strong>
+    <br>Bitly data is fetched in real time, but qualifying data is manually added. Last refresh : 21/06/2025 - 6PM UTC+1</p>
+</div>
+<script src="{{ url_for('static', filename='js/dashboard-beautiful-display.js') }}" ></script>
+{% endblock %}

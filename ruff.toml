@@ -1,0 +1,48 @@
+line-length = 88
+indent-width = 4
+target-version = "py312"
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "ERA001",  # Commented-out code - we assume it's okay.
+    "N999",  # Module Names.
+    "W291",  # Trailing Whitespaces - unnecessary.
+    "FIX002",  # To do notification triggers.
+    "TD003",  # To do issue link clause.
+    "TD002",  # To do action author.
+    "SLF001",  # Access private member of a class.
+    "INP001",  # Implicit package namespaces.
+    "EM101",  # Exception cannot have literal string.
+    "TRY003",  # Avoid long messages outside exception class.
+    "D401",  # First line of docstring needs to be in imperative mood.
+    "T201",  # Avoid all code print statements.
+    "S201",  # Flask runs in Debug TODO: Edit this for production.
+    "D203",  # One Blank Like before Class (conflicts with D211 'No blank like before class')
+    "D212",  # Multi-line Summary First Line (conflicts with D213 'Multi-line Summary Second Line')
+    "COM812",  # Missing trailing comma
+    "ISC001",  # Single line implicit string concatenation.
+    "TC001",  # Typing-only imports
+]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+fixable = ["ALL"]
+unfixable = []
+
+[lint.per-file-ignores]
+"**/tests/*" = [
+    "S101",
+    "PLR2004",
+    "S106",
+    "DTZ007",
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+[lint.pylint]
+max-args = 10
