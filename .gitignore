@@ -1,4 +1,5 @@
 .env
 database/affiliate-links.csv
+database/affiliate-codes.csv
 database/database.db
 database/fill_affiliates.sql

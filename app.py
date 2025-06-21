@@ -7,11 +7,8 @@ from dotenv import load_dotenv
 from flask import (
     Flask,
     Response,
-    flash,
-    make_response,
     redirect,
     render_template,
-    request,
 )
 from flask_login import LoginManager
 
@@ -94,8 +91,9 @@ def create_app() -> Flask:
 # If executed directly, use debug - CAUTION for production.
 if __name__ == "__main__":
     app = create_app()
+    from waitress import serve
     # context = (
     #    "C:\\Users\\angaros\\server.crt",
     #    "C:\\Users\\angaros\\server.key",
     # )  # certificate and key files
-    app.run(host="0.0.0.0", port=8081, threaded=True)  # noqa: S104
+    serve(app, host="0.0.0.0", port=8081)  # noqa: S104
