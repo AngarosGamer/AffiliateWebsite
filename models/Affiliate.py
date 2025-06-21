@@ -1,8 +1,5 @@
 """The Affiliate Model file."""
-from datetime import datetime
-from time import strftime, gmtime
 
-import bcrypt
 
 
 class Affiliate:

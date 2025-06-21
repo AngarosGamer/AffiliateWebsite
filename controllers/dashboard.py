@@ -1,29 +1,41 @@
 """controllers/dashboard.py."""
 import csv
 import os
-from flask import Blueprint, Response, render_template, abort
-from flask_login import current_user, login_required
+from pathlib import Path
+
 import requests
+from flask import Blueprint, Response, abort, render_template
+from flask_login import current_user, login_required
 
 import constants
-from models.User_DAO import UserDAO
+from models.Affiliate import Affiliate
 from models.AffiliateDAO import AffiliateDAO
+from models.User_DAO import UserDAO
 
 dashboard_controller = Blueprint("dashboard_controller", __name__)
 
-def get_bitly_links_stat(affiliate) -> int | None:
+def get_bitly_links_stat(affiliate: Affiliate) -> int | None:
+    """Get bitly links stat."""
     headers = {
-        "Authorization": f"Bearer {os.getenv("BITLY_API")}"
+        "Authorization": f"Bearer {os.getenv('BITLY_API')}"
     }
     # Get the default group_guid for the account
     try:
-        #group_resp = requests.get(f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-IGNAIT/clicks?unit=month&units=1", headers=headers)
-        group_resp = requests.get(f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-{affiliate.referral_code}/clicks?unit=month&units=1", headers=headers)
+        #group_resp = requests.get(
+        #   f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-IGNAIT/clicks?unit=month&units=1",
+        #   headers=headers,
+        #   timeout=10,
+        # )
+        group_resp = requests.get(
+            f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-{affiliate.referral_code}/clicks?unit=month&units=1",
+            headers=headers,
+            timeout=10,
+        )
         group_resp.raise_for_status()
     except requests.exceptions.HTTPError as err:
         print(err)
         abort(500)
-    if group_resp.status_code != 200:
+    if group_resp.status_code != requests.codes.ok:
         return None
     return group_resp.json()["link_clicks"][0]["clicks"]
 
@@ -40,26 +52,33 @@ def dashboard_get() -> Response | str:
     if not affiliate:
         return abort(403) # The user is not an affiliate...
 
-    if not os.path.exists(constants.CSV_LINKS_PATH) or not os.path.isfile(constants.CSV_CODES_PATH):
+    if not Path.is_file(constants.CSV_LINKS_PATH) or \
+            not Path.is_file(constants.CSV_CODES_PATH):
         abort(404)
 
     qualifying_links = 0
-    with open(constants.CSV_LINKS_PATH, newline='', encoding='utf-8') as csvfile:
+    with Path.open(constants.CSV_LINKS_PATH, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if row.get('Initial UTM Campaign').lower() == affiliate.referral_code.lower() and row.get('Cohort') == 'All User Profiles':
-                qualifying_links += int(row.get("Jun 1 2024, 12:00AM - Jun 21 2025, 8:51AM"))
+            if row.get("Initial UTM Campaign").lower() == affiliate.referral_code.lower() \
+                    and row.get("Cohort") == "All User Profiles":
+                qualifying_links += int(row.get(
+                    "Jun 1 2024, 12:00AM - Jun 21 2025, 8:51AM"
+                ))
 
 
     qualifying_codes = 0
-    with open(constants.CSV_CODES_PATH, newline='', encoding='utf-8') as csvfile:
+    with Path.open(constants.CSV_CODES_PATH, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if row.get('ReferralCode').lower() == affiliate.referral_code.lower() and row.get('Cohort') == 'All User Profiles':
-                qualifying_codes += int(row.get("Jun 1 2024, 12:00AM - Jun 21 2025, 9:27AM"))
+            if row.get("ReferralCode").lower() == affiliate.referral_code.lower() \
+                    and row.get("Cohort") == "All User Profiles":
+                qualifying_codes += int(row.get(
+                    "Jun 1 2024, 12:00AM - Jun 21 2025, 9:27AM"
+                ))
 
     return render_template(
-        'dashboard.html',
+        "dashboard.html",
         bitly_clicks=get_bitly_links_stat(affiliate),
         qualifying_links=int(qualifying_links),
         qualifying_codes=int(qualifying_codes),

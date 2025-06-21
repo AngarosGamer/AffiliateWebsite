@@ -1,7 +1,6 @@
 """Main Flask app file."""
 
 import os
-from urllib.parse import urljoin
 
 from dotenv import load_dotenv
 from flask import (
@@ -12,12 +11,11 @@ from flask import (
 )
 from flask_login import LoginManager
 
-
-from controllers.login import login_controller  # Import login_controller
-from controllers.signup import signup_controller  # Import signup_controller
 from controllers.dashboard import dashboard_controller  # Import dashboard_controller
-from controllers.legal import legal_controller # Import legal controller
-from controllers.privacy import privacy_controller # Import privacy controller
+from controllers.legal import legal_controller  # Import legal controller
+from controllers.login import login_controller  # Import login_controller
+from controllers.privacy import privacy_controller  # Import privacy controller
+from controllers.signup import signup_controller  # Import signup_controller
 from models.User import User
 from models.User_DAO import UserDAO
 
@@ -76,7 +74,7 @@ def create_app() -> Flask:
 
     # Handle 500 (Internal)
     @app.errorhandler(500)
-    def page_not_found(_e: Exception) -> tuple[str, int]:
+    def server_error(_e: Exception) -> tuple[str, int]:
         """Handle 500 errors gracefully."""
         return render_template("500.html"), 500
 
@@ -96,4 +94,4 @@ if __name__ == "__main__":
     #    "C:\\Users\\angaros\\server.crt",
     #    "C:\\Users\\angaros\\server.key",
     # )  # certificate and key files
-    serve(app, host="0.0.0.0", port=8081)  # noqa: S104
+    serve(app, host="0.0.0.0", port=8085)  # noqa: S104

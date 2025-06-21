@@ -1,6 +1,4 @@
 """The User Model file."""
-from datetime import datetime
-from time import strftime, gmtime
 
 import bcrypt
 from flask_login import UserMixin

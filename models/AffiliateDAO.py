@@ -28,7 +28,7 @@ class AffiliateDAO:
         cursor = db.cursor()
         cursor.execute(query, params)
         db.commit()
-        affiliate.id_affiliate = cursor.lastrowid  # Récupère l'ID généré automatiquement
+        affiliate.id_affiliate = cursor.lastrowid  # Get generated ID
         cursor.close()
         return affiliate
 
