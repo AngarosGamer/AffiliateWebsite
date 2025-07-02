@@ -12,11 +12,15 @@ class User(UserMixin):
         id_user: int | None = None,
         email: str = "",
         password: str = "",
+        affiliate_status: bool = False,
+        referral_code: str = "",
     ) -> None:
         """Build User class item."""
         self.id_user = id_user
         self.email = email
         self.password = password
+        self.affiliate_status = affiliate_status
+        self.referral_code = referral_code
 
     # Getter for id_user
     def get_id_user(self) -> int:
@@ -77,6 +81,46 @@ class User(UserMixin):
             passwd = bytes(passwd, "utf-8")
         self.password = str(bcrypt.hashpw(passwd, bcrypt.gensalt()), "utf8")
 
+
+    # Getter for affiliate_status
+    def get_affiliate_status(self) -> bool:
+        """
+        Getter for affiliate status.
+
+        :return: Is the user an affiliate?
+        """
+        return self.affiliate_status
+
+
+    # Setter for affiliate_status
+    def set_affiliate_status(self, affiliate_status: bool) -> None:
+        """
+        Setter for affiliate status.
+
+        :param affiliate_status: The new affiliate status to set.
+        """
+        self.affiliate_status = affiliate_status
+
+
+    # Getter for referral_code
+    def get_referral_code(self) -> str | None:
+        """
+        Getter for referral_code.
+
+        :return: The User's affiliate code.
+        """
+        return self.referral_code
+
+
+    # Setter for referral_code
+    def set_referral_code(self, referral_code: str) -> None:
+        """
+        Setter for referral_code.
+
+        :param referral_code: The new referral_code to set.
+        """
+        self.referral_code = str(referral_code)
+
     # Additional methods
     def check_password(self, passwd_to_check: str) -> bool:
         """
@@ -95,6 +139,8 @@ class User(UserMixin):
         return {
             "id_user": self.get_id_user(),
             "email": self.get_email(),
+            "affiliate_status": self.get_affiliate_status(),
+            "referral_code": self.get_referral_code(),
         }
 
     def get_id(self) -> int:

@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+
+{% block title %}Angaros - Legal Notice{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_form-buttons.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_backoffice-commons.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/user-management.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/_custom-alert.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    {% include '_header.html' %}
+        <div class="content">
+            {% if (users|length) <= 0 %}
+                <p class="items-not-found">No Users match your search criteria!</p>
+            {% endif %}
+
+            <div class="users-top-header">
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-bar" placeholder="Search" />
+                </div>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="error-list">
+                        {% for _, message in messages %}
+                            <li class="error">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+             <div id="users-list">
+                {% include '_backoffice_users.html' %}
+            </div>
+
+            <div id="customAlertBox" class="custom-alert">
+                <div class="custom-alert-content">
+                    <div id="alertMessage"></div>
+                    <span class="close">&times;</span>
+                </div>
+            </div>
+        </div>
+<script src="{{ url_for('static', filename='js/_backoffice-commons.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user-actions.js') }}"></script>
+{% endblock %}

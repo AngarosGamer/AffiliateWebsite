@@ -8,13 +8,12 @@ from flask import Blueprint, Response, abort, render_template
 from flask_login import current_user, login_required
 
 import constants
-from models.Affiliate import Affiliate
-from models.AffiliateDAO import AffiliateDAO
+from models.User import User
 from models.User_DAO import UserDAO
 
 dashboard_controller = Blueprint("dashboard_controller", __name__)
 
-def get_bitly_links_stat(affiliate: Affiliate) -> int | None:
+def get_bitly_links_stat(user: User) -> int | None:
     """Get bitly links stat."""
     headers = {
         "Authorization": f"Bearer {os.getenv('BITLY_API')}"
@@ -27,7 +26,7 @@ def get_bitly_links_stat(affiliate: Affiliate) -> int | None:
         #   timeout=10,
         # )
         group_resp = requests.get(
-            f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-{affiliate.referral_code}/clicks?unit=month&units=1",
+            f"https://api-ssl.bitly.com/v4/bitlinks/bit.ly/Salad-{user.referral_code}/clicks?unit=month&units=1",
             headers=headers,
             timeout=10,
         )
@@ -48,19 +47,18 @@ def dashboard_get() -> Response | str:
     :return: Returns the dashboard template, or redirect to login.
     """
     user = UserDAO.get_user_by_id(current_user.id_user)
-    affiliate = AffiliateDAO.get_affiliate_by_email(user.email)
-    if not affiliate:
+    if not user.get_affiliate_status():
         return abort(403) # The user is not an affiliate...
 
-    if not Path.is_file(constants.CSV_LINKS_PATH) or \
-            not Path.is_file(constants.CSV_CODES_PATH):
+    if not os.path.exists(constants.CSV_LINKS_PATH) or \
+            not os.path.exists(constants.CSV_CODES_PATH):
         abort(404)
 
     qualifying_links = 0
     with Path.open(constants.CSV_LINKS_PATH, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if row.get("Initial UTM Campaign").lower() == affiliate.referral_code.lower() \
+            if row.get("Initial UTM Campaign").lower() == user.referral_code.lower() \
                     and row.get("Cohort") == "All User Profiles":
                 qualifying_links += int(row.get(
                     "Jun 1 2024, 12:00AM - Jun 21 2025, 8:51AM"
@@ -71,7 +69,7 @@ def dashboard_get() -> Response | str:
     with Path.open(constants.CSV_CODES_PATH, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            if row.get("ReferralCode").lower() == affiliate.referral_code.lower() \
+            if row.get("ReferralCode").lower() == user.referral_code.lower() \
                     and row.get("Cohort") == "All User Profiles":
                 qualifying_codes += int(row.get(
                     "Jun 1 2024, 12:00AM - Jun 21 2025, 9:27AM"
@@ -79,9 +77,7 @@ def dashboard_get() -> Response | str:
 
     return render_template(
         "dashboard.html",
-        bitly_clicks=get_bitly_links_stat(affiliate),
+        bitly_clicks=get_bitly_links_stat(user),
         qualifying_links=int(qualifying_links),
         qualifying_codes=int(qualifying_codes),
-        affiliate=affiliate)
-
-    return abort(403)
+        user=user)

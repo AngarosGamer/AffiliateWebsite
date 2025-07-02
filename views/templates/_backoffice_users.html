@@ -1,0 +1,27 @@
+<div class="user-list">
+    {% if (users|length) <= 0 %}
+        <p class="items-not-found">No Users match your search criteria!</p>
+    {% endif %}
+    {% for user in users %}
+        <div class="backoffice-item">
+            <form class="backoffice-forms" action="/backoffice/update" method="post">
+                <div class="backoffice-item-data">
+                    <p>User n°{{ user.id_user }}
+                        {% if user.id_user == current_user.id_user %}
+                            <span id="active-user-message"> - This is you! (ReadOnly)</span>
+                        {% endif %}
+                    </p>
+                    <input type="hidden" name="user_id" value="{{ user.id_user }}">
+                    <p>Email: <input {% if user.id_user == current_user.id_user %}readonly title="Cannot edit your email!"{% endif %} name="user_email" value="{{ user.email }}"></p>
+                    <p>Affiliate Status: <input type="checkbox" {% if user.affiliate_status == 1 %}checked{% endif %} {% if user.id_user == current_user.id_user %}disabled title="Cannot edit your Affiliate Status!"{% endif %} name="user_affiliate_status" value="{{ user.affiliate_status }}"></p>
+                    <p>Referral Code: <input {% if user.id_user == current_user.id_user %}readonly title="Cannot edit your referral code!"{% endif %} name="user_referral_code" value="{{ user.referral_code }}"></p>
+                </div>
+                <button class="form-button" type="submit" {% if user.id_user == current_user.id_user %}disabled title="Cannot update yourself!"{% endif %}>Update</button>
+            </form>
+            <form class="backoffice-forms" id="delete-user-form" action="/backoffice/delete" method="post">
+                <input type="hidden" name="user_id" value="{{ user.id_user }}">
+                <button id="user-form-delete-button" class="form-delete-button" {% if user.id_user == current_user.id_user %}disabled title="Cannot delete yourself!"{% endif %} type="button">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>

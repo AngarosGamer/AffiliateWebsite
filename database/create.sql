@@ -1,14 +1,9 @@
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Affiliates;
 
 CREATE TABLE IF NOT EXISTS User (
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Affiliates (
-    id_affiliate INTEGER PRIMARY KEY AUTOINCREMENT,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    referral_code VARCHAR(50) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    affiliate_status INTEGER,
+    referral_code VARCHAR(100)
 );

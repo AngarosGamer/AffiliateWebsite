@@ -1,0 +1,32 @@
+#active-user-message {
+    color: var(--main-accent-color-opposite);
+}
+
+.users-top-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 0 15px;
+    align-items: center;
+}
+
+.users-top-header>p {
+    text-align: right;
+    width: 100%;
+}
+
+.user-list {
+    overflow: scroll;
+}
+
+.form-button {
+    max-width: 30%;
+}
+
+#alertMessage {
+    width: 100%;
+}
+
+.custom-alert-content {
+    display: flex;
+    align-items: start;
+}

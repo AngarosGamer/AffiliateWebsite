@@ -1,0 +1,260 @@
+.center-div p {
+    text-align: center;
+}
+
+.warning {
+    color: var(--main-color-warning);
+}
+
+.backoffice-item {
+    backdrop-filter: blur(70px);
+    -webkit-backdrop-filter: blur(50px);
+    background-color: rgba(255,255,255, 0.25);
+    border: solid 1px var(--main-dark-text-color);
+    border-radius: 5px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.backoffice-item-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.backoffice-item-data>p {
+    margin: 0;
+}
+
+.backoffice-item-data>p:first-child {
+    font-weight: bold;
+}
+
+.backoffice-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-basis: auto;
+}
+
+.backoffice-forms:first-child {
+    width: 50%
+}
+
+.backoffice-forms:last-child {
+    width: 10%;
+}
+.form-delete-button {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    height: 40px;
+    font-size: 16px;
+    color: var(--main-white-text-color);
+    background-color: var(--highlight-color);
+}
+.form-delete-button:hover {
+    background-color: var(--main-accent-color-opposite);
+    cursor: pointer;
+}
+.form-delete-button:disabled {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    height: 40px;
+    font-size: 16px;
+    background-color: var(--highlight-color);
+    color: rgba(200, 200, 200, 0.5);
+}
+.form-delete-button:disabled:hover {
+    cursor: auto;
+    background-color: var(--highlight-color);
+}
+
+.form-button-confirm:hover {
+    cursor: pointer;
+    background-position: 95% 0%; /* 99 to avoid clipping on right side (--main-accent-color) */
+}
+
+.form-button-confirm {
+    height: 40px;
+    font-size: 16px;
+    background: linear-gradient(90deg, var(--main-accent-color), var(--main-accent-color-opposite));
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: var(--main-white-text-color);
+    background-size: 200% 200%; /* Animation, set big background gradient and displace background */
+    background-position: 0% 0%;
+    transition: background-position 0.5s ease;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: SyneRegular, sans-serif;
+    cursor: pointer;
+}
+
+.form-button-cancel {
+    width: 50%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    height: 40px;
+    font-size: 16px;
+    color: var(--main-white-text-color);
+    background-color: var(--highlight-color);
+    cursor: pointer;
+}
+
+.alert-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    border-radius: 5px;
+    height: 20px;
+    border: 1px solid var(--main-dark-text-color);
+    width: 100%;
+}
+
+.custom-select select {
+  appearance: none;
+  background-color: var(--main-white-text-color);
+  border: 1px solid var(--main-dark-text-color);
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+}
+
+.search-container {
+    width: 100%;
+    height: 40px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search-bar {
+    width: 50%;
+    height: 30px;
+}
+
+.items-not-found {
+    width: 100%;
+    text-align: center;
+}
+
+.header-right>a:nth-child(4) {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid var(--main-dark-text-color);
+    border-radius: 5px;
+    color: var(--main-dark-text-color);
+    text-decoration: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 25px;
+    background-color: rgba(255,255,255, 0.85);
+    border: solid 1px var(--main-dark-text-color);
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 5px;
+    box-sizing: content-box;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    box-sizing: content-box;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background: linear-gradient(90deg, var(--main-accent-color), var(--main-accent-color-opposite));
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: var(--main-white-text-color);
+    background-size: 200% 200%; /* Animation, set big background gradient and displace background */
+    background-position: 1% 0%;
+    transition: background-position 0.5s ease;
+    font-family: SyneRegular, sans-serif;
+    box-sizing: content-box;
+
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid var(--main-dark-text-color);
+    border-radius: 5px;
+    color: var(--main-dark-text-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    color: var(--main-white-text-color);
+    border-color: var(--main-accent-color);
+    background-color: var(--main-accent-color);
+}
+
+
+select {
+    background-color: var(--main-white-text-color);
+    border: 1px solid var(--main-dark-text-color);
+    border-radius: 5px;
+    height: 23px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.error-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.error {
+    color: var(--main-accent-color-opposite)
+}
+
+#alertMessage {
+    width: 100%;
+}
+
+.custom-alert-content {
+    display: flex;
+    align-items: start;
+}

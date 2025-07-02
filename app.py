@@ -11,6 +11,7 @@ from flask import (
 )
 from flask_login import LoginManager
 
+from controllers.backoffice import backoffice_controller
 from controllers.dashboard import dashboard_controller  # Import dashboard_controller
 from controllers.legal import legal_controller  # Import legal controller
 from controllers.login import login_controller  # Import login_controller
@@ -39,6 +40,7 @@ def create_app() -> Flask:
     app.register_blueprint(login_controller)
     app.register_blueprint(signup_controller)
     app.register_blueprint(dashboard_controller)
+    app.register_blueprint(backoffice_controller)
     app.register_blueprint(legal_controller)
     app.register_blueprint(privacy_controller)
 

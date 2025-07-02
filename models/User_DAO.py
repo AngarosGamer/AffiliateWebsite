@@ -16,12 +16,16 @@ class UserDAO:
         """
         query = """INSERT INTO User (
                             email,
-                            password
+                            password,
+                            affiliate_status,
+                            referral_code
                             )
-                   VALUES (?, ?)"""
+                   VALUES (?, ?, ?, ?)"""
         params = (
             user.email,
             user.password,
+            False, # Affiliate Status defaults to False
+            "", # Referral code is empty by default
         )
         # TODO: Add try / except clause
         db = sqlite_connection.get_db()
@@ -75,11 +79,15 @@ class UserDAO:
         """
         query = """UPDATE User
                    SET  email = ?, 
-                        password = ?
+                        password = ?,
+                        affiliate_status = ?,
+                        referral_code = ?
                    WHERE id_user = ?"""
         params = (
             user.email,
             user.password,
+            user.affiliate_status,
+            user.referral_code,
             user.id_user,
         )
         db = sqlite_connection.get_db()
@@ -133,10 +141,11 @@ class UserDAO:
         """
         query_text = f"%{query}%"
         query = """
-                SELECT * FROM Users
-                WHERE email LIKE ?
+                SELECT * FROM User
+                WHERE email LIKE ? OR
+                referral_code LIKE ?
             """
-        params = (query_text, query_text, query_text)
+        params = (query_text, query_text, )
         db = sqlite_connection.get_db()
         cursor = db.cursor()
         cursor.execute(query, params)
