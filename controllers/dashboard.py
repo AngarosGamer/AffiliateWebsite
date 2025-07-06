@@ -51,7 +51,7 @@ def dashboard_get() -> Response | str:
         return abort(403) # The user is not an affiliate...
 
     if not os.path.exists(constants.CSV_LINKS_PATH) or \
-            not os.path.exists(constants.CSV_CODES_PATH):
+            not os.path.exists(constants.CSV_CODES_PATH): # noqa: PTH110
         abort(404)
 
     qualifying_links = 0

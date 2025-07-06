@@ -145,7 +145,7 @@ class UserDAO:
                 WHERE email LIKE ? OR
                 referral_code LIKE ?
             """
-        params = (query_text, query_text, )
+        params = (query_text, query_text)
         db = sqlite_connection.get_db()
         cursor = db.cursor()
         cursor.execute(query, params)

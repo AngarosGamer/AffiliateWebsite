@@ -29,7 +29,7 @@ def login_post() -> Response | str:
     :return: Successful login returns dashboard template, else return to login.
     """
     # login logic here
-    email = request.form.get("email")
+    email = request.form.get("email").lower()
     password = request.form.get("password")
     next_url = request.form.get("next")
 

@@ -1,7 +1,15 @@
 """The User Model file."""
+from enum import Enum
 
 import bcrypt
 from flask_login import UserMixin
+
+
+class AffiliateStatus(Enum):
+    """Refactor for Ruff rules - boolean in fct header."""
+
+    TRUE = True
+    FALSE = False
 
 
 class User(UserMixin):
@@ -12,7 +20,7 @@ class User(UserMixin):
         id_user: int | None = None,
         email: str = "",
         password: str = "",
-        affiliate_status: bool = False,
+        affiliate_status: AffiliateStatus = AffiliateStatus.FALSE,
         referral_code: str = "",
     ) -> None:
         """Build User class item."""
@@ -92,14 +100,15 @@ class User(UserMixin):
         return self.affiliate_status
 
 
-    # Setter for affiliate_status
-    def set_affiliate_status(self, affiliate_status: bool) -> None:
-        """
-        Setter for affiliate status.
+    # Setter for affiliate_status to false
+    def set_affiliate_status_false(self) -> None:
+        """Setter for affiliate status."""
+        self.affiliate_status = False
 
-        :param affiliate_status: The new affiliate status to set.
-        """
-        self.affiliate_status = affiliate_status
+    # Setter for affiliate_status to true
+    def set_affiliate_status_true(self) -> None:
+        """Setter for affiliate status."""
+        self.affiliate_status = True
 
 
     # Getter for referral_code

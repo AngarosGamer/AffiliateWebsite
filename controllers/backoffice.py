@@ -1,10 +1,9 @@
 """controllers/backoffice.py."""
 import os
 
-from flask import Blueprint, Response, abort, render_template, request, flash, redirect
+from flask import Blueprint, Response, abort, flash, redirect, render_template, request
 from flask_login import current_user, login_required
 
-import constants
 from models.User import User
 from models.User_DAO import UserDAO
 
@@ -19,7 +18,7 @@ def backoffice_get() -> Response | str:
     :return: Returns the backoffice template, or redirect to login.
     """
     user: User = UserDAO.get_user_by_id(current_user.id_user)
-    if not user.email.lower() == os.getenv('ADMIN_EMAIL').lower():
+    if user.email.lower() != os.getenv("ADMIN_EMAIL").lower():
         return abort(404) # The user is not an admin, drop the request
 
     users: list[User] = UserDAO.get_all_users()
@@ -69,7 +68,7 @@ def backoffice_users_update() -> Response | str:
     :return: Returns the user management template, or redirect to login.
     """
     user: User = UserDAO.get_user_by_id(int(current_user.id_user))
-    if not user.email.lower() == os.getenv('ADMIN_EMAIL').lower():
+    if user.email.lower() != os.getenv("ADMIN_EMAIL").lower():
         return abort(404) # The user is not an admin, drop the request
 
     user_id = request.form.get("user_id")  # Get user ID
@@ -110,9 +109,8 @@ def backoffice_users_delete() -> Response | str:
 
     :return: Returns the user management template, or redirect to login.
     """
-
     user: User = UserDAO.get_user_by_id(current_user.id_user)
-    if not user.email.lower() == os.getenv('ADMIN_EMAIL').lower():
+    if user.email.lower() != os.getenv("ADMIN_EMAIL").lower():
         return abort(404)  # The user is not an admin, drop the request
 
     user_id = request.form.get("user_id")  # Get user ID

@@ -59,7 +59,7 @@ def signup_post() -> Response | str:
 
     :return: Successful signup, return dashboard template, else return to signup.
     """
-    email = request.form.get("email")  # Récupérer l'email
+    email = request.form.get("email").lower()  # Get email
     password = request.form.get("password")  # Get password
     confirm_password = request.form.get(  # noqa: F841
         "confirm-password"
@@ -82,6 +82,6 @@ def signup_post() -> Response | str:
 
     user_str = User(email=email)
     user_str.set_password(password)
-    employee = UserDAO.create_user(user_str)
-    login_user(employee, remember=True)
+    user = UserDAO.create_user(user_str)
+    login_user(user, remember=True)
     return redirect("/dashboard")
